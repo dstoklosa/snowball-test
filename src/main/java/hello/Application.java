@@ -59,9 +59,9 @@ public class Application {
   public String index(@RequestBody final ArenaUpdate arenaUpdate) {
       System.out.println(arenaUpdate);
       final String[] commands = new String[]{"F", "R", "L", "T"};
-      final String[] moveCommands = new String[]{"F", "F", "F", "F", "F", "R", "L"};
+      final String[] moveCommands = new String[]{"F", "F", "F", "F", "F", "F", "R", "L"};
 
-        final int i = new Random().nextInt(7);
+        final int i = new Random().nextInt(8);
 
       if(isInDanger(arenaUpdate)) {
           return moveCommands[i];
