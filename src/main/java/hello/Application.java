@@ -81,6 +81,10 @@ public class Application {
       Map<String, PlayerState> positions = aUpdate.arena.state;
       List<Integer> myPostion = getMyPostion(aUpdate);
 
+      if(myPostion == null) {
+          return false;
+      }
+      
       Set<String> strings = positions.keySet();
       for (int i = 0; i < positions.size(); i++) {
           PlayerState playerState = positions.get(i);
