@@ -10,6 +10,9 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.Map;
 import java.util.Random;
+import java.util.Collection;
+import java.util.Iterator;
+
 
 import com.google.api.core.ApiFuture;
 import com.google.cloud.ServiceOptions;
@@ -157,15 +160,18 @@ public class Application {
           return false;
       }
 
-      Set<String> strings = positions.keySet();
-      for (int i = 0; i < positions.size(); i++) {
-          PlayerState playerState = positions.get(i);
-          if (myPostion.get(0) == playerState.x
-              && Math.abs(myPostion.get(1) - playerState.y) <= 3) {
-                  System.out.println("In danger");
-              return true;
-          }
-      }
+      Collection<PlayerState>  values = positions.values();
+            Iterator<PlayerState> iterator = values.iterator();
+
+            while (iterator.hasNext() ) {
+                PlayerState playerState = iterator.next();
+                if (myPostion.get(0) == playerState.x
+                    && Math.abs(myPostion.get(1) - playerState.y) <= 3) {
+                    return true;
+                }
+            }
+
+            
 
       return false;
   }
