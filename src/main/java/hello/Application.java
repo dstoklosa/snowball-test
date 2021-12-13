@@ -151,7 +151,7 @@ public class Application {
             System.out.println("Player="+playerId);
         }
 
-        PlayerState wasp = arenaUpdate.arena.state.get("Wasp");
+        PlayerState wasp = arenaUpdate.arena.state.get("https://34.117.79.98.sslip.io");
         if (wasp != null) {
             return Arrays.asList(wasp.x, wasp.y);
         }
