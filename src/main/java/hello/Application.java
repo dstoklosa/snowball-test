@@ -145,6 +145,12 @@ public class Application {
     }
 
     private List<Integer> getMyPostion(ArenaUpdate arenaUpdate) {
+
+        Set<String> values = arenaUpdate.arena.state.keySet();
+        for (String playerId : values) {
+            System.out.println("Player="+playerId);
+        }
+
         PlayerState wasp = arenaUpdate.arena.state.get("Wasp");
         if (wasp != null) {
             return Arrays.asList(wasp.x, wasp.y);
