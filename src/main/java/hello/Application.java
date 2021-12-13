@@ -134,15 +134,16 @@ public class Application {
 
 
       final String[] commands = new String[]{"F", "R", "L", "T"};
-      final String[] moveCommands = new String[]{"F", "F", "F", "F", "F", "F", "R", "L"};
+      final String[] moveCommands = new String[]{"F", "F", "T", "T", "T", "T", "R", "L"};
 
         final int i = new Random().nextInt(8);
+        return moveCommands[i];
 
-      if(isInDanger(arenaUpdate)) {
-          return moveCommands[i];
-      }
+    //   if(isInDanger(arenaUpdate)) {
+    //       return moveCommands[i];
+    //   }
 
-      return "T";
+    //   return "T";
   }
 
 
