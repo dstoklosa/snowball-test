@@ -13,168 +13,167 @@ import java.util.Random;
 import java.util.Collection;
 import java.util.Iterator;
 
-
 import com.google.api.core.ApiFuture;
 import com.google.cloud.ServiceOptions;
 import com.google.cloud.bigquery.storage.v1.*;
 import com.google.protobuf.Descriptors;
 import org.json.JSONArray;
 import org.json.JSONObject;
- 
+
 import java.io.IOException;
 import java.time.Instant;
-
-
 
 @SpringBootApplication
 @RestController
 public class Application {
 
-
     // static class WriteCommittedStream {
 
-    //     final JsonStreamWriter jsonStreamWriter;
-    
-    //     public WriteCommittedStream(String projectId, String datasetName, String tableName) throws IOException, Descriptors.DescriptorValidationException, InterruptedException {
-    
-    //       try (BigQueryWriteClient client = BigQueryWriteClient.create()) {
-    
-    //         WriteStream stream = WriteStream.newBuilder().setType(WriteStream.Type.COMMITTED).build();
-    //         TableName parentTable = TableName.of(projectId, datasetName, tableName);
-    //         CreateWriteStreamRequest createWriteStreamRequest =
-    //                 CreateWriteStreamRequest.newBuilder()
-    //                         .setParent(parentTable.toString())
-    //                         .setWriteStream(stream)
-    //                         .build();
-    
-    //         WriteStream writeStream = client.createWriteStream(createWriteStreamRequest);
-    
-    //         jsonStreamWriter = JsonStreamWriter.newBuilder(writeStream.getName(), writeStream.getTableSchema()).build();
-    //       }
-    //     }
-    
-    //     public ApiFuture<AppendRowsResponse> send(Arena arena) {
-    //       Instant now = Instant.now();
-    //       JSONArray jsonArray = new JSONArray();
-    
-    //       arena.state.forEach((url, playerState) -> {
-    //         JSONObject jsonObject = new JSONObject();
-    //         jsonObject.put("x", playerState.x);
-    //         jsonObject.put("y", playerState.y);
-    //         jsonObject.put("direction", playerState.direction);
-    //         jsonObject.put("wasHit", playerState.wasHit);
-    //         jsonObject.put("score", playerState.score);
-    //         jsonObject.put("player", url);
-    //         jsonObject.put("timestamp", now.getEpochSecond() * 1000 * 1000);
-    //         jsonArray.put(jsonObject);
-    //       });
-    
-    //       return jsonStreamWriter.append(jsonArray);
-    //     }
-    
-    //   }
-    
-    //   final String projectId = ServiceOptions.getDefaultProjectId();
-    //   final String datasetName = "snowball";
-    //   final String tableName = "events";
-    
-    //   final WriteCommittedStream writeCommittedStream;
-    
-    //   public Application() throws Descriptors.DescriptorValidationException, IOException, InterruptedException {
-    //     writeCommittedStream = new WriteCommittedStream(projectId, datasetName, tableName);
-    //   }
-    
+    // final JsonStreamWriter jsonStreamWriter;
 
+    // public WriteCommittedStream(String projectId, String datasetName, String
+    // tableName) throws IOException, Descriptors.DescriptorValidationException,
+    // InterruptedException {
 
-  static class Self {
-    public String href;
-  }
+    // try (BigQueryWriteClient client = BigQueryWriteClient.create()) {
 
-  static class Links {
-    public Self self;
-  }
+    // WriteStream stream =
+    // WriteStream.newBuilder().setType(WriteStream.Type.COMMITTED).build();
+    // TableName parentTable = TableName.of(projectId, datasetName, tableName);
+    // CreateWriteStreamRequest createWriteStreamRequest =
+    // CreateWriteStreamRequest.newBuilder()
+    // .setParent(parentTable.toString())
+    // .setWriteStream(stream)
+    // .build();
 
-  static class PlayerState {
-    public Integer x;
-    public Integer y;
-    public String direction;
-    public Boolean wasHit;
-    public Integer score;
-  }
+    // WriteStream writeStream = client.createWriteStream(createWriteStreamRequest);
 
-  static class Arena {
-    public List<Integer> dims;
-    public Map<String, PlayerState> state;
-  }
+    // jsonStreamWriter = JsonStreamWriter.newBuilder(writeStream.getName(),
+    // writeStream.getTableSchema()).build();
+    // }
+    // }
 
-  static class ArenaUpdate {
-    public Links _links;
-    public Arena arena;
-  }
+    // public ApiFuture<AppendRowsResponse> send(Arena arena) {
+    // Instant now = Instant.now();
+    // JSONArray jsonArray = new JSONArray();
 
-  public static void main(final String[] args) {
-    SpringApplication.run(Application.class, args);
-  }
+    // arena.state.forEach((url, playerState) -> {
+    // JSONObject jsonObject = new JSONObject();
+    // jsonObject.put("x", playerState.x);
+    // jsonObject.put("y", playerState.y);
+    // jsonObject.put("direction", playerState.direction);
+    // jsonObject.put("wasHit", playerState.wasHit);
+    // jsonObject.put("score", playerState.score);
+    // jsonObject.put("player", url);
+    // jsonObject.put("timestamp", now.getEpochSecond() * 1000 * 1000);
+    // jsonArray.put(jsonObject);
+    // });
 
-  @InitBinder
-  public void initBinder(final WebDataBinder binder) {
-    binder.initDirectFieldAccess();
-  }
+    // return jsonStreamWriter.append(jsonArray);
+    // }
 
-  @GetMapping("/")
-  public String index() {
-    return "Let the battle begin!";
-  }
+    // }
 
-  @PostMapping("/**")
-  public String index(@RequestBody final ArenaUpdate arenaUpdate) {
-      System.out.println(arenaUpdate);
+    // final String projectId = ServiceOptions.getDefaultProjectId();
+    // final String datasetName = "snowball";
+    // final String tableName = "events";
 
-//      writeCommittedStream.send(arenaUpdate.arena);
+    // final WriteCommittedStream writeCommittedStream;
 
+    // public Application() throws Descriptors.DescriptorValidationException,
+    // IOException, InterruptedException {
+    // writeCommittedStream = new WriteCommittedStream(projectId, datasetName,
+    // tableName);
+    // }
 
-      final String[] commands = new String[]{"F", "R", "L", "T"};
-      final String[] moveCommands = new String[]{"F", "F", "T", "T", "T", "T", "R", "L"};
+    static class Self {
+        public String href;
+    }
+
+    static class Links {
+        public Self self;
+    }
+
+    static class PlayerState {
+        public Integer x;
+        public Integer y;
+        public String direction;
+        public Boolean wasHit;
+        public Integer score;
+    }
+
+    static class Arena {
+        public List<Integer> dims;
+        public Map<String, PlayerState> state;
+    }
+
+    static class ArenaUpdate {
+        public Links _links;
+        public Arena arena;
+    }
+
+    public static void main(final String[] args) {
+        SpringApplication.run(Application.class, args);
+    }
+
+    @InitBinder
+    public void initBinder(final WebDataBinder binder) {
+        binder.initDirectFieldAccess();
+    }
+
+    @GetMapping("/")
+    public String index() {
+        return "Let the battle begin!";
+    }
+
+    @PostMapping("/**")
+    public String index(@RequestBody final ArenaUpdate arenaUpdate) {
+        System.out.println(arenaUpdate);
+
+        // writeCommittedStream.send(arenaUpdate.arena);
+
+        final String[] commands = new String[] { "F", "R", "L", "T" };
+        final String[] moveCommands = new String[] { "F", "F", "T", "T", "T", "T", "R", "L" };
 
         final int i = new Random().nextInt(8);
         return moveCommands[i];
 
-    //   if(isInDanger(arenaUpdate)) {
-    //       return moveCommands[i];
-    //   }
+        // if(isInDanger(arenaUpdate)) {
+        // return moveCommands[i];
+        // }
 
-    //   return "T";
-  }
+        // return "T";
+    }
 
+    private List<Integer> getMyPostion(ArenaUpdate arenaUpdate) {
+        PlayerState wasp = arenaUpdate.arena.state.get("Wasp");
+        if (wasp != null) {
+            return Arrays.asList(wasp.x, wasp.y);
+        }
 
-  private List<Integer> getMyPostion(ArenaUpdate arenaUpdate) {
-      PlayerState wasp = arenaUpdate.arena.state.get("Wasp");
-      return Arrays.asList(wasp.x, wasp.y);
-  }
+        System.out.println("Cannot find your player by name");
+        return null;
 
-  private boolean isInDanger(final ArenaUpdate aUpdate) {
+    }
 
-      Map<String, PlayerState> positions = aUpdate.arena.state;
-      List<Integer> myPostion = getMyPostion(aUpdate);
+    private boolean isInDanger(final ArenaUpdate aUpdate) {
 
-      if(myPostion == null) {
-          return false;
-      }
+        Map<String, PlayerState> positions = aUpdate.arena.state;
+        List<Integer> myPostion = getMyPostion(aUpdate);
 
-      Collection<PlayerState>  values = positions.values();
-            Iterator<PlayerState> iterator = values.iterator();
+        if (myPostion == null) {
+            return false;
+        }
 
-            while (iterator.hasNext() ) {
-                PlayerState playerState = iterator.next();
-                if (myPostion.get(0) == playerState.x
-                    && Math.abs(myPostion.get(1) - playerState.y) <= 3) {
-                    return true;
-                }
+        Collection<PlayerState> values = positions.values();
+
+        for (PlayerState playerState : values) {
+
+            if (myPostion.get(0) == playerState.x && Math.abs(myPostion.get(1) - playerState.y) <= 3) {
+                return true;
             }
+        }
 
-            
-
-      return false;
-  }
+        return false;
+    }
 }
-
